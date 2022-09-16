@@ -1,0 +1,37 @@
+
+                    Console.WriteLine($"Route\n  {_route}\n  {req.Url.AbsolutePath} \n  {!_route.Contains("<")}");
+
+                    if(!_route.Contains("<") && _route != req.Url.AbsolutePath) {
+                        _routeCandidates.Remove(_routeIndex);
+                        Console.WriteLine($"Removed route {_routeIndex} as it was not equal");
+                        continue;
+                    }
+
+                    if(_route.Split("/").Length != req.Url.AbsolutePath.Split("/").Length) {
+                        // Console.WriteLine($"Route has unmatching length {_route}");
+                        _routeCandidates.Remove(_routeIndex);
+                    }
+
+                    // Console.WriteLine("Route: " + _route);
+
+                    var _routeArguments = _route.Split("/");
+                    _routeArguments[0] = "/";
+
+                    if(_routeArguments.Length - 1 < _argumentIndex) {
+                        _routeCandidates.Remove(_routeIndex);
+                        // Console.WriteLine("Route " + _routeIndex.ToString() + " too short");
+                        continue;
+                    }
+
+                    if(_routeArguments[_argumentIndex][0] == '<' && _routeArguments[_argumentIndex][_routeArguments[_argumentIndex].Length - 1] == '>') {
+                        continue;
+                    }
+
+                    // Console.WriteLine(String.Format("Argument: {0}, RouteArgument: {1}", argument, _routeArguments[_argumentIndex]));
+
+                    if(argument == _routeArguments[_argumentIndex]) {
+                        continue;
+                    } else {
+                        // Console.WriteLine("Unmatching Argument");
+                        _routeCandidates.Remove(_routeIndex);
+                    }
