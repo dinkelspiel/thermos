@@ -1,5 +1,5 @@
 # Thermos
-A C# framework for building web applications based on the Flask syntax.
+If you know Flask you know Thermos.
 
 ## A Simple Hello World Application
 
